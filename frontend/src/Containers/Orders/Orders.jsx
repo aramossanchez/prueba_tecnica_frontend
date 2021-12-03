@@ -15,6 +15,13 @@ const Orders = () =>{
     
     //HOOK PARA GUARDAR POSICION DE ARRAY DE TODOS LOS ORDERS
     const [posicion, setPosicion] = useState(0);
+    
+    //HOOK PARA SABER SI SE ESTÁ EDITANDO UN REGISTRO
+    const [editando, setEditando] = useState(false);
+
+    //HOOK PARA GUARDAR EL REGISTRO QUE SE ESTÁ EDITANDO
+    const [registro, setRegistro] = useState({});
+
 
     useEffect(()=>{
         traerOrders();
@@ -25,6 +32,7 @@ const Orders = () =>{
             paginarOrders(posicion);            
         }
     },[orders])
+    
 
     //OBTENER TODOS LOS ORDERS
     const traerOrders = async() =>{
@@ -51,28 +59,33 @@ const Orders = () =>{
         setPagina(arrayPagina);
         setPosicion(posicion);
     }
+    
+    //MUESTRA PANTALLA PARA ACTUALIZAR REGISTRO DE ORDER
+    const abrirActualizacionRegistro = (order) =>{
+        setEditando(true);
+        setRegistro(order)
+    }
 
-    //ACTUALIZAR REGISTRO
-    const actualizarRegistro = async(order) =>{
-        inputNoEditable();
+    //CIERRO PANTALLA PARA ACTUALIZAR REGISTRO
+    const cerrarActualizacionRegistro = () =>{
+        setEditando(false);
+    }
+
+    //MODIFICO VALORES PARA ACTUALIZAR EL ORDER
+    const actualizarValores = (e) =>{
+        setRegistro({...registro, [e.target.name]: e.target.value})
+    }
+
+    //GUARDO DATOS DE REGISTRO ACTUALIZADO EN BASE DE DATOS
+    const actualizarRegistro = async() =>{
         try {
-            //TODOS LOS INPUTS DEL REGISTRO QUE QUEREMOS ACTUALIZAR SE VUELVEN EDITABLES
-            let inputs = document.getElementsByName(order.order_id);
 
-            for (let i = 0; i < inputs.length; i++) {
-                inputs[i].readOnly = false;
-            }
+            await axios.put(`http://localhost:4000/orders/actualizarRegistro/${registro.id}`, registro);
+            traerOrders();
+            cerrarActualizacionRegistro()
 
         } catch (error) {
             console.log(error);
-        }
-    }
-
-    //HACEMOS QUE NINGÚN INPUT QUE MUESTRA INFORMACIÓN DE LOS REGISTROS SEA EDITABLE
-    const inputNoEditable = () =>{
-        let div = document.getElementsByClassName("listado-orders");
-        for (let i = 0; i < div.length; i++) {
-            console.log(div[i]);            
         }
     }
 
@@ -91,7 +104,56 @@ const Orders = () =>{
 
     return(
         <div className="contenedor-orders">
+            {editando
+            ?
+            <div className="actualizacion-order-fondo">
+                <div className="actualizacion-order">
+                    <h2>EDIT ORDER</h2>
+                    <div className="inputs-editables">
+                        <label >
+                            ORDER ID:
+                        <input className="input-actualizar" name="order_id"  type="text" value={registro.order_id} onChange={(e)=>actualizarValores(e)}/>
+                        </label>
+                        <label>
+                            COUNTRY:
+                        <input className="input-actualizar" name="country"  type="text" value={registro.country} onChange={(e)=>actualizarValores(e)}/>
+                        </label>
+                        <label>
+                            SHIP DATE:
+                        <input className="input-actualizar" name="ship_date"  type="text" value={registro.ship_date} onChange={(e)=>actualizarValores(e)}/>
+                        </label>
+                        <label>
+                            COMPANY NAME:
+                        <input className="input-actualizar" name="company_name"  type="text" value={registro.company_name} onChange={(e)=>actualizarValores(e)}/>
+                        </label>
+                        <label>
+                            STATUS:
+                        <input className="input-actualizar" name="status"  type="text" value={registro.status} onChange={(e)=>actualizarValores(e)}/>
+                        </label>
+                        <label>
+                            TYPE:
+                        <input className="input-actualizar" name="type"  type="text" value={registro.type} onChange={(e)=>actualizarValores(e)}/>
+                        </label>
+                    </div>
+                    <div className="botones-actualizar">
+                        <div onClick={()=>actualizarRegistro()}>SAVE CHANGES</div>
+                        <div onClick={()=>cerrarActualizacionRegistro()}>CLOSE</div>
+                    </div>
+                </div>
+            </div>
+            :
+            null
+            }
             {/* NOMBRES DE LOS CAMPOSº */}
+            <header>
+                <div>
+                    <h2>Local Datasource</h2>
+                    <span>Javascript array as data source</span>
+                </div>
+                <div className="boton">
+                    New record
+                </div>
+            </header>
             <div className="nombres-campos">
                 <ul>
                     <li>ORDER ID</li>
@@ -107,14 +169,14 @@ const Orders = () =>{
             {pagina.map((order)=>{
                 return(
                     <div key={order.id} className="listado-orders">
-                        <input name={order.order_id} type="text" readOnly value={order.order_id}/>
-                        <input name={order.order_id} type="text" readOnly value={order.country}/>
-                        <input name={order.order_id} type="text" readOnly value={order.ship_date}/>
-                        <input name={order.order_id} type="text" readOnly value={order.company_name}/>
-                        <input name={order.order_id} type="text" readOnly value={order.status}/>
-                        <input name={order.order_id} type="text" readOnly value={order.type}/>
+                        <input name="order_id"  type="text" readOnly value={order.order_id}/>
+                        <input name="country"  type="text" readOnly value={order.country}/>
+                        <input name="ship_date"  type="text" readOnly value={order.ship_date}/>
+                        <input name="company_name"  type="text" readOnly value={order.company_name}/>
+                        <input name="status"  type="text" readOnly value={order.status}/>
+                        <input name="type"  type="text" readOnly value={order.type}/>
                         <div className="acciones">
-                            <img onClick={()=>actualizarRegistro(order)} src={actualizar} alt="Lapiz Actualizar" />
+                            <img onClick={()=>abrirActualizacionRegistro(order)} src={actualizar} alt="Lapiz Actualizar" />
                             <img onClick={()=>borrarRegistro(order.id)} src={borrar} alt="Papelera Borrar" />
                         </div>
                     </div>

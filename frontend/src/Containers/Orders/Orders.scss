@@ -3,6 +3,16 @@
     height: 100vh;
     font-size: 0.8em;
 }
+header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    div{
+        margin: 1.5em;
+    }
+}
 /*NOMBRES DE LOS CAMPOS DE LA TABLA QUE APARECEN ARRIBA EN LA VISTA*/
 .nombres-campos{
     width: 100%;
@@ -18,6 +28,9 @@
         width: 13%;
         text-align: left;
         padding: 0.5em 0;
+        color: rgb(180, 175, 175);
+        font-weight: bold;
+        margin-right: 0.25em;
     }
 }
 /*LISTADO DE LOS ORDERS MOSTRADOS EN LA PAGINA*/
@@ -46,6 +59,55 @@ input{
     margin-left: 0.75em;
     cursor: pointer;
 }
+/*CUADRO PARA ACTUALIZAR USUARIO*/
+.actualizacion-order-fondo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.815);
+    z-index: 3;
+}
+.actualizacion-order{
+    position: absolute;
+    top: 25vh;
+    left: 35vw;
+    width: 30vw;
+    height: 50vh;
+    border-radius: 0.3em;
+    background-color: white;
+    box-shadow: 0px 0px 20px 2px rgb(184, 184, 184);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    .inputs-editables{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        label{
+            font-weight: bold;
+        }
+    }
+    input{
+        font-weight: normal;
+        border: 0.1em solid black;
+        background-color: rgb(226, 226, 226);
+        width: 10em;
+        margin: 0.5em 1em;
+        cursor: text;
+    }
+    .botones-actualizar{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        div{
+            margin: 0 1em;
+            cursor: pointer;
+        }
+    }
+}
 /*BOTONES DE PAGINACION*/
 .botones-paginacion{
     position: absolute;
@@ -69,4 +131,12 @@ input{
     div:hover{
         background-color: rgb(184, 199, 231);
     }
+}
+/*ESTILO PARA LOS BOTONES*/
+.boton{
+    padding: 1em 2em;
+    color: white;
+    background-color: rgb(99, 32, 255);
+    font-weight: bold;
+    border-radius: 0.3em;
 }
