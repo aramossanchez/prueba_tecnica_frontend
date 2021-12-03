@@ -25,7 +25,7 @@ header{
     }
     ul li{
         all: unset;
-        width: 13%;
+        width: 11%;
         text-align: left;
         padding: 0.5em 0;
         color: rgb(180, 175, 175);
@@ -40,11 +40,12 @@ header{
     align-items: center;
     justify-content: center;
     width: 100%;
+    font-size: 0.8em;
 }
 /*CADA CAMPO DE CADA REGISTRO DE ORDER MOSTRADO*/
 input, input:read-only, .acciones{
     all: unset;
-    width: 13%;
+    width: 11%;
     border-top: 0.1em solid rgb(233, 233, 233);
     padding: 1.5em 0;
     margin-right: 0.25em;
@@ -91,17 +92,19 @@ input{
     }
     input{
         font-weight: normal;
-        border: 0.1em solid black;
+        border: 0.1em solid rgb(167, 167, 167);
         background-color: rgb(226, 226, 226);
         width: 10em;
         margin: 0.5em 1em;
         cursor: text;
+        padding-left: 0.25em;
     }
     .botones-actualizar{
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        margin: 1em;
         div{
             margin: 0 1em;
             cursor: pointer;
@@ -139,4 +142,5 @@ input{
     background-color: rgb(99, 32, 255);
     font-weight: bold;
     border-radius: 0.3em;
+    cursor: pointer;
 }

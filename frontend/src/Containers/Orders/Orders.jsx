@@ -18,10 +18,24 @@ const Orders = () =>{
     
     //HOOK PARA SABER SI SE ESTÁ EDITANDO UN REGISTRO
     const [editando, setEditando] = useState(false);
+    
+    //HOOK PARA SABER SI SE ESTÁ EDITANDO UN REGISTRO
+    const [creando, setCreando] = useState(false);
 
     //HOOK PARA GUARDAR EL REGISTRO QUE SE ESTÁ EDITANDO
     const [registro, setRegistro] = useState({});
-
+    
+    //HOOK PARA CREAR EL REGISTRO
+    const [registroNuevo, setRegistroNuevo] = useState({
+        order_id: "",
+        country: "",
+        ship_date: "",
+        company_name: "",
+        status:"",
+        type:"",
+        createdAt:new Date(),
+        updatedAt:new Date(),
+    });
 
     useEffect(()=>{
         traerOrders();
@@ -89,6 +103,34 @@ const Orders = () =>{
         }
     }
 
+    //ABRO CUADRO PARA CREAR REGISTRO
+    const abrirCreacionOrder = () =>{
+        setCreando(true);
+    }
+
+    //CIERRO CUADRO PARA CREAR REGISTRO
+    const cerrarCreacionOrder = () =>{
+        setCreando(false);
+    }
+
+    //CREO ORDER NUEVO EN LA BASE DE DATOS
+    const crearRegistro = async() =>{
+        try {
+
+            await axios.post("http://localhost:4000/orders/nuevoregistro", registroNuevo);
+            traerOrders();
+            cerrarCreacionOrder();
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    //MODIFICO VALORES PARA CREAR NUEVO ORDER
+    const actualizarValoresNuevo = (e) =>{
+        setRegistroNuevo({...registroNuevo, [e.target.name]: e.target.value})
+    }
+
     //BORRAR REGISTRO
     const borrarRegistro = async(id) =>{
 
@@ -136,8 +178,48 @@ const Orders = () =>{
                         </label>
                     </div>
                     <div className="botones-actualizar">
-                        <div onClick={()=>actualizarRegistro()}>SAVE CHANGES</div>
-                        <div onClick={()=>cerrarActualizacionRegistro()}>CLOSE</div>
+                        <div className="boton" onClick={()=>actualizarRegistro()}>SAVE CHANGES</div>
+                        <div className="boton" onClick={()=>cerrarActualizacionRegistro()}>CLOSE</div>
+                    </div>
+                </div>
+            </div>
+            :
+            null
+            }
+            {creando
+            ?
+            <div className="actualizacion-order-fondo">
+                <div className="actualizacion-order">
+                    <h2>NEW ORDER</h2>
+                    <div className="inputs-editables">
+                        <label >
+                            ORDER ID:
+                        <input className="input-actualizar" name="order_id"  type="text" value={registroNuevo.order_id} onChange={(e)=>actualizarValoresNuevo(e)}/>
+                        </label>
+                        <label>
+                            COUNTRY:
+                        <input className="input-actualizar" name="country"  type="text" value={registroNuevo.country} onChange={(e)=>actualizarValoresNuevo(e)}/>
+                        </label>
+                        <label>
+                            SHIP DATE:
+                        <input className="input-actualizar" name="ship_date"  type="text" value={registroNuevo.ship_date} onChange={(e)=>actualizarValoresNuevo(e)}/>
+                        </label>
+                        <label>
+                            COMPANY NAME:
+                        <input className="input-actualizar" name="company_name"  type="text" value={registroNuevo.company_name} onChange={(e)=>actualizarValoresNuevo(e)}/>
+                        </label>
+                        <label>
+                            STATUS:
+                        <input className="input-actualizar" name="status"  type="text" value={registroNuevo.status} onChange={(e)=>actualizarValoresNuevo(e)}/>
+                        </label>
+                        <label>
+                            TYPE:
+                        <input className="input-actualizar" name="type"  type="text" value={registroNuevo.type} onChange={(e)=>actualizarValoresNuevo(e)}/>
+                        </label>
+                    </div>
+                    <div className="botones-actualizar">
+                        <div className="boton" onClick={()=>crearRegistro()}>SAVE NEW ORDER</div>
+                        <div className="boton" onClick={()=>cerrarCreacionOrder()}>CLOSE</div>
                     </div>
                 </div>
             </div>
@@ -150,7 +232,7 @@ const Orders = () =>{
                     <h2>Local Datasource</h2>
                     <span>Javascript array as data source</span>
                 </div>
-                <div className="boton">
+                <div className="boton" onClick={()=>abrirCreacionOrder()}>
                     New record
                 </div>
             </header>
