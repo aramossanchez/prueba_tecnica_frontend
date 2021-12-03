@@ -1,7 +1,9 @@
 .contenedor-orders{
     width: 100vw;
     height: 100vh;
+    font-size: 0.8em;
 }
+/*NOMBRES DE LOS CAMPOS DE LA TABLA QUE APARECEN ARRIBA EN LA VISTA*/
 .nombres-campos{
     width: 100%;
     ul{        
@@ -13,11 +15,12 @@
     }
     ul li{
         all: unset;
-        width: 15%;
+        width: 13%;
         text-align: left;
         padding: 0.5em 0;
     }
 }
+/*LISTADO DE LOS ORDERS MOSTRADOS EN LA PAGINA*/
 .listado-orders{
     display: flex;
     flex-direction: row;
@@ -25,11 +28,23 @@
     justify-content: center;
     width: 100%;
 }
-input, input:read-only{
+/*CADA CAMPO DE CADA REGISTRO DE ORDER MOSTRADO*/
+input, input:read-only, .acciones{
     all: unset;
-    width: 15%;
+    width: 13%;
     border-top: 0.1em solid rgb(233, 233, 233);
-    padding: 1em 0;
+    padding: 1.5em 0;
+    margin-right: 0.25em;
+}
+input{
+    background-color: rgb(233, 233, 233);
+    border-radius: 0.25em;
+    padding: 0.25em 0;
+}
+.acciones img{
+    width: 1em;
+    margin-left: 0.75em;
+    cursor: pointer;
 }
 /*BOTONES DE PAGINACION*/
 .botones-paginacion{
@@ -45,7 +60,7 @@ input, input:read-only{
         text-align: center;
         margin: 0 1em;
         cursor: pointer;
-        background-color: rgb(233, 233, 233);
+        background-color: rgb(239, 244, 248);
         border-radius: 0.5em;
         width: 2em;
         height: 2em;
