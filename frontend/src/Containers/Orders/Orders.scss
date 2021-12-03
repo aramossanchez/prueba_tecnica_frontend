@@ -1,3 +1,57 @@
-body{
-    background-color: red;
+.contenedor-orders{
+    width: 100vw;
+    height: 100vh;
+}
+.nombres-campos{
+    width: 100%;
+    ul{        
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    ul li{
+        all: unset;
+        width: 15%;
+        text-align: left;
+        padding: 0.5em 0;
+    }
+}
+.listado-orders{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+input, input:read-only{
+    all: unset;
+    width: 15%;
+    border-top: 0.1em solid rgb(233, 233, 233);
+    padding: 1em 0;
+}
+/*BOTONES DE PAGINACION*/
+.botones-paginacion{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 1em;
+    div{
+        text-align: center;
+        margin: 0 1em;
+        cursor: pointer;
+        background-color: rgb(233, 233, 233);
+        border-radius: 0.5em;
+        width: 2em;
+        height: 2em;
+        padding-top: 0.5em;
+    }
+    div:hover{
+        background-color: rgb(184, 199, 231);
+    }
 }
