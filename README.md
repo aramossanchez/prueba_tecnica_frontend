@@ -1,6 +1,6 @@
-# Prueba Tecnica Frontend
+# Prueba Tecnica (parte frontend)
 
-## Solicitan prueba técnica en Dynamiza TIC.
+## Solicitan prueba técnica para puesto junior.
 
 ## Consiste en la creación de una vista frontal para el backend https://github.com/aramossanchez/prueba_tecnica_backend/tree/deploy
 
