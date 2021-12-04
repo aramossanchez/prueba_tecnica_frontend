@@ -7,6 +7,8 @@ import borrar from '../../img/borrar.png';
 
 const Orders = () =>{
 
+    //HOOKS***********************************************************************************************************
+
     //HOOK PARA GUARDAR ORDERS DE BASE DE DATOS
     const [orders, setOrders] = useState([]);
     
@@ -43,6 +45,8 @@ const Orders = () =>{
     //HOOK PARA INDICAR EL NUMERO DE LA PAGINA EN EL QUE NOS ENCONTRAMOS
     const [numeroPagina, setNumeroPagina] = useState(1);
 
+    //USE EFFECT***********************************************************************************************************
+
     useEffect(()=>{
         traerOrders();
     },[])
@@ -52,23 +56,22 @@ const Orders = () =>{
             paginarOrders(posicion);
         }
     },[orders])
-    
-    //BUSCAR ORDERS
-    const buscarOrders = () =>{
-        let orderID = document.getElementById("input-busqueda").value;
-        let opcionStatus = document.getElementById("opciones-status").value;
-        if (opcionStatus === "All") {
-            opcionStatus = "";
-        }
-        let opcionType = document.getElementById("opciones-type").value;
-        if (opcionType === "All") {
-            opcionType = "";
-        }
-        let ordersBuscados = orders.filter(order => order.order_id.includes(orderID) && order.status.includes(opcionStatus) && order.type.includes(opcionType));
-        setOrders(ordersBuscados);
-        setBusqueda(true);
-    }
 
+    //MOSTRAR ORDERS***********************************************************************************************************
+
+    //OBTENER TODOS LOS ORDERS
+    const traerOrders = async() =>{
+
+        try {
+
+            let res = await axios.get("http://localhost:4000/orders");
+            setOrders(res.data);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
     //DAR ESTILO A STATUS Y TYPES
     const darEstiloStatus = (status) =>{
         switch (status) {
@@ -101,6 +104,23 @@ const Orders = () =>{
         }
     }
 
+    //BUSQUEDA DE ORDERS***********************************************************************************************************
+
+    //BUSCAR ORDERS
+    const buscarOrders = () =>{
+        let orderID = document.getElementById("input-busqueda").value;
+        let opcionStatus = document.getElementById("opciones-status").value;
+        if (opcionStatus === "All") {
+            opcionStatus = "";
+        }
+        let opcionType = document.getElementById("opciones-type").value;
+        if (opcionType === "All") {
+            opcionType = "";
+        }
+        let ordersBuscados = orders.filter(order => order.order_id.includes(orderID) && order.status.includes(opcionStatus) && order.type.includes(opcionType));
+        setOrders(ordersBuscados);
+        setBusqueda(true);
+    }
 
     //CERRAR RESULTADOS DE BUSQUEDA Y VOLVER A MOSTRAR TODOS LOS ORDERS
     const cerrarBusqueda = () => {
@@ -111,62 +131,7 @@ const Orders = () =>{
         setBusqueda(false);
     }
 
-    //OBTENER TODOS LOS ORDERS
-    const traerOrders = async() =>{
-
-        try {
-
-            let res = await axios.get("http://localhost:4000/orders");
-            setOrders(res.data);
-            
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    //OBTENER REGISTROS PARA PAGINACION
-    const paginarOrders = (posicion) =>{
-
-        let arrayPagina = [];
-
-        for (let i = posicion; i < posicion+10; i++) {
-            if (orders[i]) {
-                arrayPagina.push(orders[i]);
-            }       
-        }
-
-        setPagina(arrayPagina);
-        setPosicion(posicion);
-    }
-    
-    //MUESTRA PANTALLA PARA ACTUALIZAR REGISTRO DE ORDER
-    const abrirActualizacionRegistro = (order) =>{
-        setEditando(true);
-        setRegistro(order)
-    }
-
-    //CIERRO PANTALLA PARA ACTUALIZAR REGISTRO
-    const cerrarActualizacionRegistro = () =>{
-        setEditando(false);
-    }
-
-    //MODIFICO VALORES PARA ACTUALIZAR EL ORDER
-    const actualizarValores = (e) =>{
-        setRegistro({...registro, [e.target.name]: e.target.value})
-    }
-
-    //GUARDO DATOS DE REGISTRO ACTUALIZADO EN BASE DE DATOS
-    const actualizarRegistro = async() =>{
-        try {
-
-            await axios.put(`http://localhost:4000/orders/actualizarRegistro/${registro.id}`, registro);
-            traerOrders();
-            cerrarActualizacionRegistro()
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //CREAR USUARIO***********************************************************************************************************
 
     //ABRO CUADRO PARA CREAR REGISTRO
     const abrirCreacionOrder = () =>{
@@ -196,6 +161,39 @@ const Orders = () =>{
         setRegistroNuevo({...registroNuevo, [e.target.name]: e.target.value})
     }
 
+    //ACTUALIZACION DE ORDERS***********************************************************************************************************
+    
+    //MUESTRA PANTALLA PARA ACTUALIZAR REGISTRO DE ORDER
+    const abrirActualizacionRegistro = (order) =>{
+        setEditando(true);
+        setRegistro(order)
+    }
+
+    //CIERRO PANTALLA PARA ACTUALIZAR REGISTRO
+    const cerrarActualizacionRegistro = () =>{
+        setEditando(false);
+    }
+
+    //MODIFICO VALORES PARA ACTUALIZAR EL ORDER
+    const actualizarValores = (e) =>{
+        setRegistro({...registro, [e.target.name]: e.target.value})
+    }
+
+    //GUARDO DATOS DE REGISTRO ACTUALIZADO EN BASE DE DATOS
+    const actualizarRegistro = async() =>{
+        try {
+
+            await axios.put(`http://localhost:4000/orders/actualizarRegistro/${registro.id}`, registro);
+            traerOrders();
+            cerrarActualizacionRegistro()
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    //BORRADO DE ORDERS***********************************************************************************************************
+    
     //BORRAR REGISTRO
     const borrarRegistro = async(id) =>{
 
@@ -208,6 +206,23 @@ const Orders = () =>{
         } catch (error) {
             console.log(error);
         }
+    }
+
+    //GESTION DE PAGINACION***********************************************************************************************************
+
+    //OBTENER REGISTROS PARA PAGINACION
+    const paginarOrders = (posicion) =>{
+
+        let arrayPagina = [];
+
+        for (let i = posicion; i < posicion+10; i++) {
+            if (orders[i]) {
+                arrayPagina.push(orders[i]);
+            }       
+        }
+
+        setPagina(arrayPagina);
+        setPosicion(posicion);
     }
 
     //CREAR NUMERO DE PAGINAS
@@ -237,6 +252,7 @@ const Orders = () =>{
 
     return(
         <div className="contenedor-orders">
+            {/* VENTANA DE ACTUALIZACION DE ORDER */}
             {editando
             ?
             <div className="actualizacion-order-fondo">
@@ -277,6 +293,7 @@ const Orders = () =>{
             :
             null
             }
+            {/* VENTANA DE CREACION DE ORDER */}
             {creando
             ?
             <div className="actualizacion-order-fondo">
@@ -317,7 +334,7 @@ const Orders = () =>{
             :
             null
             }
-            {/* NOMBRES DE LOS CAMPOSº */}
+            {/* CABECERA */}
             <header>
                 <div>
                     <h2>Local Datasource</h2>
@@ -327,8 +344,10 @@ const Orders = () =>{
                     New record
                 </div>
             </header>
+            {/* BUSQUEDAS */}
             <div className="contenedor-busquedas">
                 <input id="input-busqueda" type="text" placeholder="Search..."/>
+                Status
                 <select id="opciones-status">
                     <option value="All">All</option>
                     <option value="Danger">Danger</option>
@@ -336,6 +355,7 @@ const Orders = () =>{
                     <option value="Info">Info</option>
                     <option value="Canceled">Canceled</option>
                 </select>
+                Types
                 <select id="opciones-type">
                     <option value="All">All</option>
                     <option value="Retail">Retail</option>
@@ -350,6 +370,7 @@ const Orders = () =>{
                 null
                 }
             </div>
+            {/* NOMBRES DE LOS CAMPOS */}
             <div className="nombres-campos">
                 <ul>
                     <li>ORDER ID</li>
@@ -380,6 +401,7 @@ const Orders = () =>{
                 )
             })}
             </div>
+            {/* PAGINACION */}
             <footer>
                 <div className="botones-paginacion">
                     <div className={numeroPagina === 1 ? "deshabilitado":null} onClick={()=>{paginarOrders(0);paginaActual(1)}}>{"<<"}</div>
