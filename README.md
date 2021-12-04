@@ -1,6 +1,6 @@
-# Prueba Tecnica Dynamiza TIC (parte frontend)
+# Prueba Tecnica (parte frontend)
 
-## Solicitan prueba técnica en Dynamiza TIC.
+## Solicitan prueba técnica para puesto junior.
 
 ## Url de despliegue: https://deploy.d1cxfleynqsozg.amplifyapp.com/
 
