@@ -1,4 +1,4 @@
-# Prueba Tecnica Frontend
+# Prueba Tecnica Dynamiza TIC (parte frontend)
 
 ## Solicitan prueba técnica en Dynamiza TIC.
 
