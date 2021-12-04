@@ -67,15 +67,37 @@ const Orders = () =>{
     }
 
     //DAR ESTILO A STATUS Y TYPES
-    const darEstiloStatus = () =>{
-        console.log("hola");
-        let inputStatus = document.getElementsByName("status");
-        for (let i = 0; i < inputStatus.length; i++) {
-            if (inputStatus[i].value === "Pending") {
-                inputStatus[i].classList.add("status-pending");
-            }          
+    const darEstiloStatus = (status) =>{
+        switch (status) {
+            case "Pending":
+                return 'status-pending';
+            case "Danger":
+                return 'status-danger';
+            case "Info":
+                return 'status-info';
+            case "Canceled":
+                return 'status-info';
+            case "Success":
+                return 'status-pending';
+        
+            default:
+                break;
         }
     }
+    const darEstiloType = (type) =>{
+        switch (type) {
+            case "Retail":
+                return 'type-retail';
+            case "Online":
+                return 'type-online';
+            case "Direct":
+                return 'type-direct';
+        
+            default:
+                break;
+        }
+    }
+
 
     //CERRAR RESULTADOS DE BUSQUEDA Y VOLVER A MOSTRAR TODOS LOS ORDERS
     const cerrarBusqueda = () => {
@@ -329,8 +351,8 @@ const Orders = () =>{
                         <input name="country"  type="text" readOnly value={order.country}/>
                         <input name="ship_date"  type="text" readOnly value={order.ship_date}/>
                         <input name="company_name"  type="text" readOnly value={order.company_name}/>
-                        <input name="status"  type="text" readOnly value={order.status}/>
-                        <input name="type"  type="text" readOnly value={order.type}/>
+                        <div className="campo-order"><span className={darEstiloStatus(order.status)}>{order.status}</span></div>
+                        <div className="campo-order"><li className={darEstiloType(order.type)}>{order.type}</li></div>
                         <div className="acciones">
                             <img onClick={()=>abrirActualizacionRegistro(order)} src={actualizar} alt="Lapiz Actualizar" />
                             <img onClick={()=>borrarRegistro(order.id)} src={borrar} alt="Papelera Borrar" />

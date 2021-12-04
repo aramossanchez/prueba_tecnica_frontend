@@ -86,18 +86,13 @@ header{
     font-size: 0.8em;
 }
 /*CADA CAMPO DE CADA REGISTRO DE ORDER MOSTRADO*/
-input, input:read-only, .acciones{
+.campo-order, input:read-only, .acciones{
     all: unset;
     font-size: 1.25em;
     width: 13%;
     border-top: 0.1em solid rgb(233, 233, 233);
     padding: 1em 0;
     margin-right: 0.25em;
-}
-input{
-    background-color: rgb(233, 233, 233);
-    border-radius: 0.25em;
-    padding: 0.25em 0;
 }
 .acciones img{
     width: 1em;
@@ -200,7 +195,34 @@ footer{
     border-radius: 0.3em;
     cursor: pointer;
 }
-/*CLASES PARA DAR ESTILOS A DIFERENTES STATUS*/
-.status-pending{
-    font-size: 2em;
+/*CLASES PARA DAR ESTILOS A DIFERENTES STATUS Y TYPES*/
+.listado-orders .status-danger{
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: salmon;
+    color: rgb(177, 1, 1);
+}
+.listado-orders .status-pending{
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: rgb(131, 255, 197);
+    color: rgb(25, 163, 21);
+}
+.listado-orders .status-info{
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: rgb(199, 131, 255);
+    color: rgb(101, 14, 172);
+}
+.listado-orders .type-retail{
+    color: rgb(140, 0, 255);
+    font-weight: bold;
+}
+.listado-orders .type-online{
+    color: rgb(177, 1, 1);
+    font-weight: bold;
+}
+.listado-orders .type-direct{
+    color: rgb(0, 201, 140);
+    font-weight: bold;
 }
