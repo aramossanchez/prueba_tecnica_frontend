@@ -2,6 +2,8 @@
 
 ## Solicitan prueba técnica en Dynamiza TIC.
 
+## Url de despliegue: https://deploy.d1cxfleynqsozg.amplifyapp.com/
+
 ## Consiste en la creación de una vista frontal para el backend https://github.com/aramossanchez/prueba_tecnica_backend/tree/deploy
 
 ![Vista Pedida](./frontend/src/screenshots/vista-pedida.jpg)
