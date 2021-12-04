@@ -231,3 +231,8 @@ footer{
     color: rgb(0, 201, 140);
     font-weight: bold;
 }
+/*ELEMENTOS DESHABILITADOS*/
+.deshabilitado{
+    opacity: 0.5;
+    pointer-events: none;
+}

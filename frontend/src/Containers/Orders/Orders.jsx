@@ -40,6 +40,9 @@ const Orders = () =>{
     //HOOK PARA INDICAR QUE HAY HECHA UNA BUSQUEDA
     const [busqueda, setBusqueda] = useState(false);
 
+    //HOOK PARA INDICAR EL NUMERO DE LA PAGINA EN EL QUE NOS ENCONTRAMOS
+    const [numeroPagina, setNumeroPagina] = useState(1);
+
     useEffect(()=>{
         traerOrders();
     },[])
@@ -210,12 +213,22 @@ const Orders = () =>{
     //CREAR NUMERO DE PAGINAS
     const crearNumeroPaginas = () =>{
         let arrayDiv = [];
-        console.log(Math.ceil(orders.length/10));
-        for (let i = 0; i < Math.ceil(orders.length/10); i++) {
-            arrayDiv.push(<div key={`pagina${i}`}onClick={()=>paginarOrders(i*10)} className="numero-pagina">{i+1}</div>)
+        let paginas = numeroPagina+4;
+        let paginaMinima = numeroPagina-1
+        if (Math.ceil(orders.length/10) - numeroPagina < 5) {
+            paginas = Math.ceil(orders.length/10);
+            paginaMinima = Math.ceil(orders.length/10) - 5
+        }
+        for (let i = paginaMinima; i < paginas; i++) {
+            arrayDiv.push(<div id={`pagina${i+1}`} key={`pagina${i}`}onClick={()=>{paginarOrders(i*10);paginaActual(i+1)}} className="numero-pagina">{i+1}</div>);
         }
         return arrayDiv;
         
+    }
+
+    //INDICO CUAL ES LA PAGINA ACTUAL
+    const paginaActual = (id) =>{
+        setNumeroPagina(id);
     }
 
     return(
@@ -365,14 +378,14 @@ const Orders = () =>{
             </div>
             <footer>
                 <div className="botones-paginacion">
-                    <div onClick={()=>paginarOrders(0)}>{"<<"}</div>
-                    <div onClick={()=>paginarOrders(posicion-10)}>{"<"}</div>
+                    <div className={numeroPagina === 1 ? "deshabilitado":null} onClick={()=>{paginarOrders(0);paginaActual(1)}}>{"<<"}</div>
+                    <div className={numeroPagina === 1 ? "deshabilitado":null} onClick={()=>{paginarOrders(posicion-10);paginaActual(numeroPagina-1)}}>{"<"}</div>
                     {crearNumeroPaginas()}
-                    <div onClick={()=>paginarOrders(posicion+10)}>{">"}</div>
-                    <div onClick={()=>paginarOrders(orders.length - 10)}>{">>"}</div>
+                    <div className={numeroPagina === Math.ceil(orders.length/10) ? "deshabilitado":null} onClick={()=>{paginarOrders(posicion+10);paginaActual(numeroPagina+1)}}>{">"}</div>
+                    <div className={numeroPagina === Math.ceil(orders.length/10) ? "deshabilitado":null} onClick={()=>{paginarOrders((Math.ceil(orders.length/10)-1)*10);paginaActual(Math.ceil(orders.length/10))}}>{">>"}</div>
                 </div>
                 <div className="informacion-paginacion">
-                    Showing {posicion+1} - {posicion+10} of {orders.length}
+                    Showing {posicion+1} - {numeroPagina===Math.ceil(orders.length/10)?orders.length:posicion+10} of {orders.length}
                 </div>
             </footer>
         </div>
