@@ -219,8 +219,12 @@ const Orders = () =>{
             paginas = Math.ceil(orders.length/10);
             paginaMinima = Math.ceil(orders.length/10) - 5
         }
+        if (Math.ceil(orders.length/10) < 5) {
+            paginas = Math.ceil(orders.length/10);
+            paginaMinima = 0;
+        }
         for (let i = paginaMinima; i < paginas; i++) {
-            arrayDiv.push(<div id={`pagina${i+1}`} key={`pagina${i}`}onClick={()=>{paginarOrders(i*10);paginaActual(i+1)}} className="numero-pagina">{i+1}</div>);
+            arrayDiv.push(<div id={`pagina${i+1}`} key={`pagina${i}`}onClick={()=>{paginarOrders(i*10);paginaActual(i+1)}} className={numeroPagina === i+1 ? "numero-pagina pagina-activa" : "numero-pagina"}>{i+1}</div>);
         }
         return arrayDiv;
         

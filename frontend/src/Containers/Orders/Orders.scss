@@ -112,11 +112,11 @@ header{
 }
 .actualizacion-order{
     position: absolute;
-    top: 25vh;
+    top: 20vh;
     left: 35vw;
     width: 30vw;
-    height: 50vh;
-    border-radius: 0.3em;
+    height: 60vh;
+    border-radius: 0.5em;
     background-color: white;
     box-shadow: 0px 0px 20px 2px rgb(184, 184, 184);
     display: flex;
@@ -131,16 +131,18 @@ header{
         label{
             font-weight: bold;
         }
+        input{
+            font-weight: normal;
+            border: 0.1em solid rgb(167, 167, 167);
+            background-color: rgb(255, 255, 255);
+            width: 13em;
+            margin: 0.5em 1em;
+            cursor: text;
+            padding: 0.25em 0.5em;
+            border-radius: 0.2em;
+        }
     }
-    input{
-        font-weight: normal;
-        border: 0.1em solid rgb(167, 167, 167);
-        background-color: rgb(226, 226, 226);
-        width: 10em;
-        margin: 0.5em 1em;
-        cursor: text;
-        padding-left: 0.25em;
-    }
+    
     .botones-actualizar{
         display: flex;
         flex-direction: row;
@@ -179,6 +181,10 @@ footer{
         padding-top: 0.5em;
     }
     div:hover{
+        background-color: rgb(184, 199, 231);
+    }
+    /*PAGINA ACTIVA*/
+    .pagina-activa{
         background-color: rgb(184, 199, 231);
     }
 }
