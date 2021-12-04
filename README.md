@@ -56,6 +56,7 @@ Al pulsarlo, nos aparece una pantalla en la que podremos introducir los datos de
     * En el desplegable de Types podremos filtrar por el type que seleccionemos. Pulsamos el botón "SEARCH" y nos filtrará todos los resultados.
     * Al pulsar el botón "SEARCH" nos aparecerá un nuevo botón, "CLOSE SEARCH". Al pulsarlo, eliminamos todos los filtros hechos y el programa nos mostrará todos los registros de nuevo.
 * Dentro de cada registro podremos realizar 2 acciones sobre el propio registro: actualizar sus datos o borrarlo de la base de datos.
+<br>
 ![Actions](./frontend/src/screenshots/actions.jpg)
     * Actualizar datos de order: Al pulsar el lápiz, nos aparece una pantalla en la podremos ver los datos del order, modificarlos, un botón para guardar los cambios en la base de datos y un boton para cerrar la pantalla.
     ![Actualizar order](./frontend/src/screenshots/editar.jpg)
