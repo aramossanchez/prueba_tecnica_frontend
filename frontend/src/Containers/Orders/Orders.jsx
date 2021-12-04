@@ -64,7 +64,7 @@ const Orders = () =>{
 
         try {
 
-            let res = await axios.get("http://localhost:4000/orders");
+            let res = await axios.get("https://ars-prueba-tecnica-backend.herokuapp.com/orders");
             setOrders(res.data);
             
         } catch (error) {
@@ -147,7 +147,7 @@ const Orders = () =>{
     const crearRegistro = async() =>{
         try {
 
-            await axios.post("http://localhost:4000/orders/nuevoregistro", registroNuevo);
+            await axios.post("https://ars-prueba-tecnica-backend.herokuapp.com/orders/nuevoregistro", registroNuevo);
             traerOrders();
             cerrarCreacionOrder();
 
@@ -183,7 +183,7 @@ const Orders = () =>{
     const actualizarRegistro = async() =>{
         try {
 
-            await axios.put(`http://localhost:4000/orders/actualizarRegistro/${registro.id}`, registro);
+            await axios.put(`https://ars-prueba-tecnica-backend.herokuapp.com/orders/actualizarRegistro/${registro.id}`, registro);
             traerOrders();
             cerrarActualizacionRegistro()
 
@@ -199,7 +199,7 @@ const Orders = () =>{
 
         try {
             
-            await axios.delete(`http://localhost:4000/orders/eliminiarRegistro/${id}`);
+            await axios.delete(`https://ars-prueba-tecnica-backend.herokuapp.com/orders/eliminiarRegistro/${id}`);
             traerOrders();
             cerrarBusqueda();
 
