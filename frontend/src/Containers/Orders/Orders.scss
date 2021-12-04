@@ -2,6 +2,10 @@
     width: 100vw;
     height: 100vh;
     font-size: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 header{
     display: flex;
@@ -12,6 +16,41 @@ header{
     div{
         margin: 1.5em;
     }
+}
+/*ELEMENTOS DE BUSQUEDA*/
+.contenedor-busquedas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 2em;
+    input, select{
+        margin: 0 2em;
+        background-color: white;
+        border: 0.1em solid rgb(209, 209, 209);
+    }
+    input{
+        padding: 0.5em;
+        font-size: 1em;
+    }
+    select{
+        width: 20em;
+        padding: 0.5em;
+        border-radius: 0.3em;
+        font-size: 0.8em;
+        option{
+            font-size: 1.2em;
+            margin: 1em;
+        }
+    }
+}
+.boton-busqueda{
+    padding: 0.5em 1.5em;
+    background-color: rgb(199, 175, 255);
+    border-radius: 0.3em;
+    cursor: pointer;
+    margin-right: 1em;
 }
 /*NOMBRES DE LOS CAMPOS DE LA TABLA QUE APARECEN ARRIBA EN LA VISTA*/
 .nombres-campos{
@@ -25,7 +64,7 @@ header{
     }
     ul li{
         all: unset;
-        width: 11%;
+        width: 13%;
         text-align: left;
         padding: 0.5em 0;
         color: rgb(180, 175, 175);
@@ -34,6 +73,10 @@ header{
     }
 }
 /*LISTADO DE LOS ORDERS MOSTRADOS EN LA PAGINA*/
+.listado-completo{
+    width: 100%;
+    min-height: 60%;
+}
 .listado-orders{
     display: flex;
     flex-direction: row;
@@ -45,9 +88,10 @@ header{
 /*CADA CAMPO DE CADA REGISTRO DE ORDER MOSTRADO*/
 input, input:read-only, .acciones{
     all: unset;
-    width: 11%;
+    font-size: 1.25em;
+    width: 13%;
     border-top: 0.1em solid rgb(233, 233, 233);
-    padding: 1.5em 0;
+    padding: 1em 0;
     margin-right: 0.25em;
 }
 input{
@@ -57,7 +101,7 @@ input{
 }
 .acciones img{
     width: 1em;
-    margin-left: 0.75em;
+    margin-right: 1.75em;
     cursor: pointer;
 }
 /*CUADRO PARA ACTUALIZAR USUARIO*/
@@ -111,11 +155,15 @@ input{
         }
     }
 }
+footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
 /*BOTONES DE PAGINACION*/
 .botones-paginacion{
-    position: absolute;
-    bottom: 0;
-    left: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -135,6 +183,14 @@ input{
         background-color: rgb(184, 199, 231);
     }
 }
+/*INFORMACION SOBRE LA PAGINACION*/
+.informacion-paginacion{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 1em;
+}
 /*ESTILO PARA LOS BOTONES*/
 .boton{
     padding: 1em 2em;
@@ -143,4 +199,8 @@ input{
     font-weight: bold;
     border-radius: 0.3em;
     cursor: pointer;
+}
+/*CLASES PARA DAR ESTILOS A DIFERENTES STATUS*/
+.status-pending{
+    font-size: 2em;
 }

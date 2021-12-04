@@ -37,16 +37,54 @@ const Orders = () =>{
         updatedAt:new Date(),
     });
 
+    //HOOK PARA INDICAR QUE HAY HECHA UNA BUSQUEDA
+    const [busqueda, setBusqueda] = useState(false);
+
     useEffect(()=>{
         traerOrders();
     },[])
     
     useEffect(()=>{
         if (orders[0]?.id) {
-            paginarOrders(posicion);            
+            paginarOrders(posicion);
         }
     },[orders])
     
+    //BUSCAR ORDERS
+    const buscarOrders = () =>{
+        let orderID = document.getElementById("input-busqueda").value;
+        let opcionStatus = document.getElementById("opciones-status").value;
+        if (opcionStatus === "All") {
+            opcionStatus = "";
+        }
+        let opcionType = document.getElementById("opciones-type").value;
+        if (opcionType === "All") {
+            opcionType = "";
+        }
+        let ordersBuscados = orders.filter(order => order.order_id.includes(orderID) && order.status.includes(opcionStatus) && order.type.includes(opcionType));
+        setOrders(ordersBuscados);
+        setBusqueda(true);
+    }
+
+    //DAR ESTILO A STATUS Y TYPES
+    const darEstiloStatus = () =>{
+        console.log("hola");
+        let inputStatus = document.getElementsByName("status");
+        for (let i = 0; i < inputStatus.length; i++) {
+            if (inputStatus[i].value === "Pending") {
+                inputStatus[i].classList.add("status-pending");
+            }          
+        }
+    }
+
+    //CERRAR RESULTADOS DE BUSQUEDA Y VOLVER A MOSTRAR TODOS LOS ORDERS
+    const cerrarBusqueda = () => {
+        document.getElementById("input-busqueda").value = "";
+        document.getElementById("opciones-status").value = "All"
+        document.getElementById("opciones-type").value = "All";
+        traerOrders();
+        setBusqueda(false);
+    }
 
     //OBTENER TODOS LOS ORDERS
     const traerOrders = async() =>{
@@ -67,7 +105,9 @@ const Orders = () =>{
         let arrayPagina = [];
 
         for (let i = posicion; i < posicion+10; i++) {
-            arrayPagina.push(orders[i]);            
+            if (orders[i]) {
+                arrayPagina.push(orders[i]);
+            }       
         }
 
         setPagina(arrayPagina);
@@ -142,6 +182,16 @@ const Orders = () =>{
         } catch (error) {
             console.log(error);
         }
+    }
+
+    //CREAR NUMERO DE PAGINAS
+    const crearNumeroPaginas = () =>{
+        let arrayDiv = []
+        for (let i = 1; i < Math.ceil(orders.length/10); i++) {
+            arrayDiv.push(<div key={`pagina${i}`}onClick={()=>paginarOrders(i*10)} className="numero-pagina">{i}</div>)
+        }
+        return arrayDiv;
+        
     }
 
     return(
@@ -236,6 +286,29 @@ const Orders = () =>{
                     New record
                 </div>
             </header>
+            <div className="contenedor-busquedas">
+                <input id="input-busqueda" type="text" placeholder="Search..."/>
+                <select id="opciones-status">
+                    <option value="All">All</option>
+                    <option value="Danger">Danger</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Info">Info</option>
+                    <option value="Canceled">Canceled</option>
+                </select>
+                <select id="opciones-type">
+                    <option value="All">All</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Online">Online</option>
+                    <option value="Direct">Direct</option>
+                </select>
+                <div className="boton-busqueda" onClick={()=>buscarOrders()}>SEARCH</div>
+                {busqueda
+                ?
+                <div className="boton-busqueda" onClick={()=>cerrarBusqueda()}>CLOSE SEARCH</div>
+                :
+                null
+                }
+            </div>
             <div className="nombres-campos">
                 <ul>
                     <li>ORDER ID</li>
@@ -248,6 +321,7 @@ const Orders = () =>{
                 </ul>
             </div>
             {/* LISTADO DE ORDERS PARA MOSTRAR */}
+            <div className="listado-completo">
             {pagina.map((order)=>{
                 return(
                     <div key={order.id} className="listado-orders">
@@ -264,12 +338,19 @@ const Orders = () =>{
                     </div>
                 )
             })}
-            <div className="botones-paginacion">
-                <div onClick={()=>paginarOrders(0)}>{"<<"}</div>
-                <div onClick={()=>paginarOrders(posicion-10)}>{"<"}</div>
-                <div onClick={()=>paginarOrders(posicion+10)}>{">"}</div>
-                <div onClick={()=>paginarOrders(orders.length - 10)}>{">>"}</div>
             </div>
+            <footer>
+                <div className="botones-paginacion">
+                    <div onClick={()=>paginarOrders(0)}>{"<<"}</div>
+                    <div onClick={()=>paginarOrders(posicion-10)}>{"<"}</div>
+                    {crearNumeroPaginas()}
+                    <div onClick={()=>paginarOrders(posicion+10)}>{">"}</div>
+                    <div onClick={()=>paginarOrders(orders.length - 10)}>{">>"}</div>
+                </div>
+                <div className="informacion-paginacion">
+                    Showing {posicion+1} - {posicion+10} of {orders.length}
+                </div>
+            </footer>
         </div>
     )
 }
