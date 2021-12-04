@@ -16,6 +16,9 @@ header{
     div{
         margin: 1.5em;
     }
+    span{
+        color: rgb(180, 175, 175);
+    }
 }
 /*ELEMENTOS DE BUSQUEDA*/
 .contenedor-busquedas{
@@ -164,6 +167,7 @@ footer{
     align-items: center;
     justify-content: flex-start;
     margin: 1em;
+    font-size: 0.8em;
     div{
         text-align: center;
         margin: 0 1em;
@@ -185,6 +189,7 @@ footer{
     align-items: center;
     justify-content: flex-start;
     margin: 1em;
+    color: rgb(94, 94, 94);
 }
 /*ESTILO PARA LOS BOTONES*/
 .boton{
@@ -199,7 +204,7 @@ footer{
 .listado-orders .status-danger{
     padding: 0.25em 0.5em;
     border-radius: 0.5em;
-    background-color: salmon;
+    background-color: rgb(255, 175, 166);
     color: rgb(177, 1, 1);
 }
 .listado-orders .status-pending{

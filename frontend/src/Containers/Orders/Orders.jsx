@@ -200,6 +200,7 @@ const Orders = () =>{
             
             await axios.delete(`http://localhost:4000/orders/eliminiarRegistro/${id}`);
             traerOrders();
+            cerrarBusqueda();
 
         } catch (error) {
             console.log(error);
@@ -208,9 +209,10 @@ const Orders = () =>{
 
     //CREAR NUMERO DE PAGINAS
     const crearNumeroPaginas = () =>{
-        let arrayDiv = []
-        for (let i = 1; i < Math.ceil(orders.length/10); i++) {
-            arrayDiv.push(<div key={`pagina${i}`}onClick={()=>paginarOrders(i*10)} className="numero-pagina">{i}</div>)
+        let arrayDiv = [];
+        console.log(Math.ceil(orders.length/10));
+        for (let i = 0; i < Math.ceil(orders.length/10); i++) {
+            arrayDiv.push(<div key={`pagina${i}`}onClick={()=>paginarOrders(i*10)} className="numero-pagina">{i+1}</div>)
         }
         return arrayDiv;
         
